@@ -1,4 +1,3 @@
-
 import React from 'react';
 
 export default class Sample extends React.Component {

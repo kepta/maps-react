@@ -1,57 +1,56 @@
 import React from 'react';
-export default class Source extends React.Component {
+export default class Layer extends React.Component {
   static propTypes = {
     name: React.PropTypes.string.isRequired,
-    children: React.PropTypes.element.isRequired,
-    map: React.PropTypes.object.isRequired,
-    data: React.PropTypes.object.isRequired,
+    _source: React.PropTypes.string,
+    map: React.PropTypes.object,
+    style: React.PropTypes.object.isRequired,
+    filter: React.PropTypes.array,
     type: React.PropTypes.string.isRequired,
+    sourceLayer: React.PropTypes.string,
+    visibility: React.PropTypes.string,
   }
-
+  static defaultProps = {
+    visibility: 'visible',
+  }
   constructor(props) {
     super(props);
-    this.state = {
-      name: this.props.name,
-    };
-    this.props.map.addSource(this.props.name, {
-      type: this.props.type,
-      data: this.props.data,
-    });
+    this.layer = this.addLayer(props);
   }
-
   componentWillUpdate(nextProps) {
-    if (this.props.name !== nextProps.name) {
-      console.debug('removing', this.props.name);
-      nextProps.map.removeSource(this.props.name);
-      this.props.map.addSource(nextProps.name, {
-        type: nextProps.type,
-        data: nextProps.data,
-      });
-      return this.setState({
-        name: nextProps.name,
-      });
-    }
-    if (this.props.data !== nextProps.data) {
-      console.debug('updating data');
-      return nextProps.map.getSource(nextProps.name).setData(nextProps.data);
+    if (nextProps.name !== this.props.name && nextProps._source) {
+      console.debug('removing layer', this.props.name);
+      nextProps.map.removeLayer(this.props.name);
+      this.layer = this.addLayer(nextProps);
     }
   }
   componentWillUnmount() {
-    console.debug('removing', this.props.name);
-    this.props.map.removeSource(this.state.name);
+    this.props.map.removeLayer(this.props.name);
   }
 
+  addLayer = (props) => {
+    const obj = {
+      ...props.style,
+      id: props.name,
+      source: props._source,
+      type: props.type,
+    };
+    if (props.visibility === 'none') {
+      obj.layout.visibility = 'none';
+    } else {
+      obj.layout.visibility = 'visible';
+    }
+    if (props.sourceLayer) {
+      obj['source-layer'] = props.sourceLayer;
+    }
+    return props.map.addLayer(obj);
+  }
   render() {
-    const childrenWithProps = React.Children.map(this.props.children,
-     (child) => React.cloneElement(child, {
-       _source: this.props.name,
-       map: this.props.map,
-     })
-    );
+    if (this.layer && this.props.filter) {
+      this.props.map.setFilter(this.props.name, this.props.filter);
+    }
     return (
-      <div>
-        {childrenWithProps}
-      </div>
+      null
     );
   }
 }

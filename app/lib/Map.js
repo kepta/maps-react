@@ -1,56 +1,62 @@
 import React from 'react';
+import mapboxgl from 'mapbox-gl';
+export const GL_TOKEN = 'pk.eyJ1Ijoia3VzaGFuMjAyMCIsImEiOiJjaWw5dG56enEwMGV6dWVsemxwMWw5NnM5In0.BbEUL1-qRFSHt7yHMorwew';
 
-export default class Source extends React.Component {
+export default class Map extends React.Component {
   static propTypes = {
-    children: React.PropTypes.element.isRequired,
+    children: React.PropTypes.element,
     center: React.PropTypes.array,
     onLoad: React.PropTypes.func,
+    style: React.PropTypes.string,
+    zoom: React.PropTypes.number,
+    pitch: React.PropTypes.number,
   }
 
   static defaultProps = {
     center: [-77.0152, 38.8937],
+    zoom: 16,
+    pitch: 0,
+    style: 'mapbox://styles/mapbox/satellite-streets-v9',
   }
-
-  constructor(props) {
-    super(props);
-    // this.state = {
-    //   loaded: false,
-    //   map: new mapboxgl.Map({
-    //     container: 'map',
-    //     style: 'mapbox://styles/mapbox/satellite-streets-v9', // stylesheet location
-    //     center: props.center, // starting position
-    //     zoom: 16,
-    //     pitch: 30,
-    //   }),
-    // };
-    // this.state.map.on('load', () => {
-    //   this.setState({ loaded: true });
-    //   if (this.props.onLoad) this.props.onLoad();
-    // });
-  }
-  shouldComponentUpdate() {
-    return false;
-  }
-  componentWillUpdate() {
-    
-  }
-  componentWillUnmount() {
+  state = {
+    map: null,
   }
   componentDidMount() {
+    mapboxgl.accessToken = GL_TOKEN;
+    const map = new mapboxgl.Map({
+      container: 'map',
+      style: this.props.style, // stylesheet location
+      center: this.props.center,
+      zoom: this.props.zoom,
+      pitch: this.props.pitch,
+    });
+    map.on('load', () => this.setState({
+      map,
+    }));
   }
-  render() {
-    const childrenWithProps = React.Children.map(this.props.children,
+  componentWillUpdate(nextProps) {
+    if (nextProps.style !== this.props.style) {
+
+      this.state.map.setStyle(nextProps.style);
+    }
+  }
+  sendProps = () => {
+    return React.Children.map(this.props.children,
      (child) => React.cloneElement(child, {
-       _map: this.state.map,
-       _loaded: this.state.loaded,
+       map: this.state.map,
      })
     );
+  }
+  render() {
+    // console.log(this.state.map);
     return (
       <div>
         <div id="map" />
-        <div>
-          {childrenWithProps}
-        </div>
+        {
+          this.state.map ?
+          this.sendProps()
+        : null
+        }
       </div>
     );
   }

@@ -5,6 +5,7 @@ module.exports = {
   'globals': {
     'it': true,
     'describe': true,
+    'mapboxgl': true
   },
   rules: {
     'max-len': [

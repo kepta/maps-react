@@ -1,16 +1,21 @@
 import { render } from 'react-dom';
 import React from 'react';
 import App from './App';
+import './mapbox-gl.css';
 import './style.css';
 import { createStore, combineReducers, applyMiddleware, compose } from 'redux';
 import reducer from './redux/reducers';
 import reduxLogger from 'redux-logger';
 import { Provider } from 'react-redux';
 import thunkMiddleware from 'redux-thunk';
-
-import { Router, Route, browserHistory } from 'react-router';
+import Sample from './Sample';
+import { Router, Route, browserHistory, IndexRoute } from 'react-router';
 import { syncHistoryWithStore, routerReducer } from 'react-router-redux';
 
+import DisplayMap from './examples/DisplayMap';
+import Cluster from './examples/Cluster';
+import SetStyle from './examples/SetStyle';
+import ToggleLayer from './examples/ToggleLayer';
 
 const node = document.getElementById('app');
 
@@ -38,7 +43,13 @@ const history = syncHistoryWithStore(browserHistory, store);
 render(
   <Provider store={store}>
     <Router history={history}>
-      <Route path="/" component={App} />
+      <Route path="/" component={App}>
+        <IndexRoute component={Sample} />
+        <Route path="display_a_map" component={DisplayMap} />
+        <Route path="cluster" component={Cluster} />
+        <Route path="SetStyle" component={SetStyle} />
+        <Route path="ToggleLayer" component={ToggleLayer} />
+      </Route>
     </Router>
   </Provider>,
   node

@@ -2,6 +2,10 @@ body {
   background-color: pink;
 }
 #map {
+  width: 50%;
+  height: 400px;
+}
+#mapSat {
   position:absolute;
   top:0;
   bottom:0;

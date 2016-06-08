@@ -18,11 +18,8 @@ const common = {
   resolve: {
     extensions: ['', '.js', '.jsx'],
     alias: {
-      webworkify: 'webworkify-webpack',
+      'mapbox-gl': path.resolve('./node_modules/mapbox-gl/dist/mapbox-gl.js'),
     },
-  },
-  node: {
-    fs: 'empty',
   },
   output: {
     path: PATHS.build,
@@ -44,31 +41,12 @@ const common = {
       { test: /\.(woff|woff2)$/, loader: 'url?prefix=font/&limit=5000' },
       { test: /\.ttf(\?v=\d+\.\d+\.\d+)?$/, loader: 'url?limit=10000&mimetype=application/octet-stream' },
       { test: /\.svg(\?v=\d+\.\d+\.\d+)?$/, loader: 'url?limit=10000&mimetype=image/svg+xml' },
-      {
-        test: /\.json$/,
-        loader: 'json-loader',
-      },
-      {
-        test: /\.js$/,
-        include: path.resolve(__dirname, 'node_modules/mapbox-gl/js/render/painter/use_program.js'),
-        loader: 'transform/cacheable?brfs',
-      },
-      {
-        test: /\.js$/,
-        include: path.resolve(__dirname, 'node_modules/mapbox-gl/js/render/shaders.js'),
-        loader: 'transform/cacheable?brfs',
-      },
-      {
-        test: /\.js$/,
-        include: path.resolve(__dirname, 'node_modules/webworkify/index.js'),
-        loader: 'worker',
-      },
     ],
   },
   plugins: [
     new HtmlWebpackPlugin({
       template: 'index.html',
-      title: 'react -webpacl.com',
+      title: 'react mapboxgl',
       appMountId: 'app',
       inject: false,
     }),
@@ -104,7 +82,7 @@ if (TARGET === 'build') {
     // Define entry points needed for splitting
     entry: {
       app: PATHS.app,
-      vendor: Object.keys(pkg.dependencies).filter(v => v !== 'alt-utils' || v !== 'mapbox-gl'),
+      vendor: Object.keys(pkg.dependencies).filter(v => v !== 'alt-utils'),
         // Exclude alt-utils as it won't work with this setup
         // due to the way the package has been designed
         // (no package.json main).

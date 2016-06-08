@@ -3,9 +3,12 @@ export default class Source extends React.Component {
   static propTypes = {
     name: React.PropTypes.string.isRequired,
     children: React.PropTypes.element.isRequired,
-    map: React.PropTypes.object.isRequired,
+    map: React.PropTypes.object,
     data: React.PropTypes.object.isRequired,
     type: React.PropTypes.string.isRequired,
+    cluster: React.PropTypes.bool,
+    clusterMaxZoom: React.PropTypes.number,
+    clusterRadius: React.PropTypes.number,
   }
 
   constructor(props) {
@@ -13,20 +16,14 @@ export default class Source extends React.Component {
     this.state = {
       name: this.props.name,
     };
-    this.props.map.addSource(this.props.name, {
-      type: this.props.type,
-      data: this.props.data,
-    });
+    this.addSource(props);
   }
 
   componentWillUpdate(nextProps) {
     if (this.props.name !== nextProps.name) {
       console.debug('removing', this.props.name);
       nextProps.map.removeSource(this.props.name);
-      this.props.map.addSource(nextProps.name, {
-        type: nextProps.type,
-        data: nextProps.data,
-      });
+      this.addSource(nextProps);
       return this.setState({
         name: nextProps.name,
       });
@@ -36,21 +33,33 @@ export default class Source extends React.Component {
       return nextProps.map.getSource(nextProps.name).setData(nextProps.data);
     }
   }
+
   componentWillUnmount() {
     console.debug('removing', this.props.name);
     this.props.map.removeSource(this.state.name);
   }
 
+  cloneChildren = () => React.Children.map(this.props.children,
+   (child) => React.cloneElement(child, {
+     _source: this.props.name,
+     map: this.props.map,
+   })
+  );
+
+  addSource(props) {
+    props.map.addSource(props.name, {
+      type: props.type,
+      data: props.data,
+      cluster: props.cluster,
+      clusterMaxZoom: props.clusterMaxZoom,
+      clusterRadius: props.clusterRadius,
+    });
+  }
+
   render() {
-    const childrenWithProps = React.Children.map(this.props.children,
-     (child) => React.cloneElement(child, {
-       _source: this.props.name,
-       map: this.props.map,
-     })
-    );
     return (
       <div>
-        {childrenWithProps}
+        {this.props.name ? this.cloneChildren() : null}
       </div>
     );
   }
