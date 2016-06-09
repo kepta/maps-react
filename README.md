@@ -93,28 +93,15 @@ export default class ToggleLayer extends React.Component {
 }
 
 ```
-
-## <Map />
-
-## <Source />
-
-## <Circle />
-
-## <Line />
-
-## <Symbol />
-
-## <Layer />
-
 # Examples
+These examples are inspired from mapbox-gl's official [examples](https://www.mapbox.com/mapbox-gl-js/examples/).
 
-- Center on a symbol [Demo](), [Src Code]()
-- Cluster [Demo](), [Src Code]()
+- Center on a symbol [Demo](http://kushanjoshi.com/maps-react/#/CenterOnSymbol), [Src Code](https://github.com/kepta/maps-react/blob/master/examples/CenterOnSymbol.js)
+- Cluster [Demo](http://kushanjoshi.com/maps-react/#/Cluster), [Src Code](https://github.com/kepta/maps-react/blob/master/examples/Cluster.js)
+- Display Map [Demo](http://kushanjoshi.com/maps-react/#/DisplayMap), [Src Code](https://github.com/kepta/maps-react/blob/master/examples/DisplayMap.js)
+- Fit Bounds [Demo](http://kushanjoshi.com/maps-react/#/FitBounds?_k=4jj3wk), [Src Code](https://github.com/kepta/maps-react/blob/master/examples/FitBounds.js)
+- Set Style [Demo](http://kushanjoshi.com/maps-react/#/SetStyle?_k=4jj3wk), [Src Code](https://github.com/kepta/maps-react/blob/master/examples/SetStyle.js)
+- Slowly Fly [Demo](http://kushanjoshi.com/maps-react/#/SlowlyFly?_k=4jj3wk), [Src Code](https://github.com/kepta/maps-react/blob/master/examples/SlowlyFly.js)
+- Toggle Layer [Demo](http://kushanjoshi.com/maps-react/#/ToggleLayer?_k=4jj3wk), [Src Code](https://github.com/kepta/maps-react/blob/master/examples/ToggleLayer.js)
+- Vector Source [Demo](http://kushanjoshi.com/maps-react/#/VectorSource?_k=4jj3wk), [Src Code](https://github.com/kepta/maps-react/blob/master/examples/VectorSource.js)
 - Color Switcher [Demo](), [Src Code]()
-- Display Map [Demo](), [Src Code]()
-- Fit Bounds [Demo](), [Src Code]()
-- Set Style [Demo](), [Src Code]()
-- Set Style [Demo](), [Src Code]()
-- Slowly Fly [Demo](), [Src Code]()
-- Toggle Layer [Demo](), [Src Code]()
-- Vector Source [Demo](), [Src Code]()
