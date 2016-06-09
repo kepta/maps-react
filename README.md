@@ -9,7 +9,7 @@ _* This is work in progress, some features might not work as expected, use with 
   npm install -S maps-react
 ```
 
-## Example: Setting up Map
+### Example: Setting up Map
 
 ```Javascript
 import React from 'react';
