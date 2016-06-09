@@ -9,17 +9,17 @@ import reduxLogger from 'redux-logger';
 import { Provider } from 'react-redux';
 import thunkMiddleware from 'redux-thunk';
 import Sample from './Sample';
-import { Router, Route, browserHistory, IndexRoute } from 'react-router';
+import { Router, Route, hashHistory, IndexRoute } from 'react-router';
 import { syncHistoryWithStore, routerReducer } from 'react-router-redux';
 
-import DisplayMap from './examples/DisplayMap';
-import Cluster from './examples/Cluster';
-import SetStyle from './examples/SetStyle';
-import ToggleLayer from './examples/ToggleLayer';
-import VectorSource from './examples/VectorSource';
-import FitBounds from './examples/FitBounds';
-import SlowlyFly from './examples/SlowlyFly';
-import CenterOnSymbol from './examples/CenterOnSymbol';
+import DisplayMap from '../examples/DisplayMap';
+import Cluster from '../examples/Cluster';
+import SetStyle from '../examples/SetStyle';
+import ToggleLayer from '../examples/ToggleLayer';
+import VectorSource from '../examples/VectorSource';
+import FitBounds from '../examples/FitBounds';
+import SlowlyFly from '../examples/SlowlyFly';
+import CenterOnSymbol from '../examples/CenterOnSymbol';
 
 const node = document.getElementById('app');
 
@@ -42,7 +42,7 @@ const store = createStore(
   )
 );
 
-const history = syncHistoryWithStore(browserHistory, store);
+const history = syncHistoryWithStore(hashHistory, store);
 
 render(
   <Provider store={store}>

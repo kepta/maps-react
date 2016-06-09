@@ -6,7 +6,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const Clean = require('clean-webpack-plugin');
 const TARGET = process.env.npm_lifecycle_event;
 const PATHS = {
-  app: path.join(__dirname, 'app'),
+  app: [path.join(__dirname, 'lib'), path.join(__dirname, 'examples'), path.join(__dirname, 'app')],
   build: path.join(__dirname, 'build'),
   test: path.join(__dirname, 'tests'),
 };

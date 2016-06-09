@@ -8,7 +8,8 @@
     "start": "webpack-dev-server --content-base build",
     "build": "webpack",
     "lint": "eslint . --ext .js --ext .jsx  ",
-    "prepublish": "babel --source-maps inline --presets es2015,react,stage-0 -d bundle/ app/lib/ "
+    "prepublish": "babel --source-maps inline --presets es2015,react,stage-0 -d bundle/ app/lib/ ",
+    "deploy": "gh-pages -d build"
   },
   "author": "",
   "license": "ISC",
