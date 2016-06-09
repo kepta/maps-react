@@ -3,7 +3,13 @@
 _*mapboxgl must be passed as prop to <Map /> component as of now :/. *_
 _* This is work in progress, some features might not work as expected, use with caution.*_
 
-## Basic usage
+# Usage 
+
+```bash
+  npm install -S maps-react
+```
+
+## Example: Setting up Map
 
 ```Javascript
 import React from 'react';
