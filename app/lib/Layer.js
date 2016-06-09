@@ -1,4 +1,6 @@
 import React from 'react';
+import { clean } from './helper';
+
 export default class Layer extends React.Component {
   static propTypes = {
     name: React.PropTypes.string.isRequired,
@@ -10,9 +12,7 @@ export default class Layer extends React.Component {
     sourceLayer: React.PropTypes.string,
     visibility: React.PropTypes.string,
   }
-  static defaultProps = {
-    visibility: 'visible',
-  }
+
   constructor(props) {
     super(props);
     this.layer = this.addLayer(props);
@@ -23,27 +23,27 @@ export default class Layer extends React.Component {
       nextProps.map.removeLayer(this.props.name);
       this.layer = this.addLayer(nextProps);
     }
+    if (this.props.visibility !== nextProps.visibility) {
+      console.debug('changing visibility');
+      nextProps.map.setLayoutProperty(nextProps.name, 'visibility', nextProps.visibility);
+    }
   }
   componentWillUnmount() {
     this.props.map.removeLayer(this.props.name);
   }
-
   addLayer = (props) => {
     const obj = {
       ...props.style,
       id: props.name,
       source: props._source,
       type: props.type,
+      'source-layer': props.sourceLayer,
     };
-    if (props.visibility === 'none') {
-      obj.layout.visibility = 'none';
-    } else {
-      obj.layout.visibility = 'visible';
+    if (props.visibility) {
+      if (!obj.layout) obj.layout = {};
+      obj.layout.visibility = props.visibility;
     }
-    if (props.sourceLayer) {
-      obj['source-layer'] = props.sourceLayer;
-    }
-    return props.map.addLayer(obj);
+    return props.map.addLayer(clean(obj));
   }
   render() {
     if (this.layer && this.props.filter) {

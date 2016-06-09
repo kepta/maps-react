@@ -1,5 +1,6 @@
 import React from 'react';
-import mapboxgl from 'mapbox-gl';
+// import mapboxgl from 'mapbox-gl';
+import { clean } from './helper';
 export const GL_TOKEN = 'pk.eyJ1Ijoia3VzaGFuMjAyMCIsImEiOiJjaWw5dG56enEwMGV6dWVsemxwMWw5NnM5In0.BbEUL1-qRFSHt7yHMorwew';
 
 export default class Map extends React.Component {
@@ -10,6 +11,7 @@ export default class Map extends React.Component {
     style: React.PropTypes.string,
     zoom: React.PropTypes.number,
     pitch: React.PropTypes.number,
+    bearing: React.PropTypes.number,
   }
 
   static defaultProps = {
@@ -17,6 +19,7 @@ export default class Map extends React.Component {
     zoom: 16,
     pitch: 0,
     style: 'mapbox://styles/mapbox/satellite-streets-v9',
+    onLoad: () => {},
   }
   state = {
     map: null,
@@ -30,14 +33,18 @@ export default class Map extends React.Component {
       zoom: this.props.zoom,
       pitch: this.props.pitch,
     });
-    map.on('load', () => this.setState({
-      map,
-    }));
+    map.on('load', () => {
+      this.setState({
+        map,
+      });
+      this.props.onLoad(map);
+    });
   }
-  componentWillUpdate(nextProps) {
-    if (nextProps.style !== this.props.style) {
-
-      this.state.map.setStyle(nextProps.style);
+  componentWillUpdate(nextProps, nextState) {
+    if (nextState.map) {
+      if (nextProps.style !== this.props.style) {
+        this.state.map.setStyle(nextProps.style);
+      }
     }
   }
   sendProps = () => {

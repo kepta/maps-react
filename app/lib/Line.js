@@ -1,20 +1,22 @@
+
 import React from 'react';
 import Layer from './Layer';
-const Circle = ({ name, _source, filter, paint, map, sourceLayer, visibility }) =>
+const Line = ({ name, _source, filter, paint, map, sourceLayer, visibility, layout }) =>
   <Layer
-    type="circle"
+    type="line"
     name={name}
     _source={_source}
     map={map}
     visibility={visibility}
     style={{
+      layout,
       paint,
     }}
     filter={filter}
     sourceLayer={sourceLayer}
   />;
 
-Circle.propTypes = {
+Line.propTypes = {
   name: React.PropTypes.string,
   _source: React.PropTypes.string,
   sourceLayer: React.PropTypes.string,
@@ -22,7 +24,8 @@ Circle.propTypes = {
   map: React.PropTypes.object,
   filter: React.PropTypes.array,
   paint: React.PropTypes.object.isRequired,
+  layout: React.PropTypes.object.isRequired,
 };
 
-export default Circle;
+export default Line;
 

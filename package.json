@@ -1,13 +1,14 @@
 {
-  "name": "react_webpack2",
-  "version": "1.0.0",
+  "name": "maps-react",
+  "version": "0.0.15",
   "description": "",
-  "main": "index.js",
+  "main": "bundle/index.js",
   "scripts": {
     "test": "mocha tests/.setup.js tests/**/*.test.js --compilers js:babel-core/register",
     "start": "webpack-dev-server --content-base build",
     "build": "webpack",
-    "lint": "eslint . --ext .js --ext .jsx  "
+    "lint": "eslint . --ext .js --ext .jsx  ",
+    "prepublish": "babel --source-maps inline --presets es2015,react,stage-0 -d bundle/ app/lib/ "
   },
   "author": "",
   "license": "ISC",
@@ -15,8 +16,10 @@
     "babel-core": "^6.9.0",
     "babel-eslint": "^6.0.4",
     "babel-loader": "^6.2.4",
+    "babel-plugin-transform-object-assign": "^6.8.0",
     "babel-preset-es2015": "^6.9.0",
     "babel-preset-es2015-native-modules": "^6.6.0",
+    "babel-preset-es2015-rollup": "^1.1.1",
     "babel-preset-react": "^6.5.0",
     "babel-preset-react-hmre": "^1.1.1",
     "babel-preset-stage-0": "^6.5.0",
@@ -45,16 +48,18 @@
     "nock": "^8.0.0",
     "react-addons-perf": "^15.1.0",
     "react-addons-test-utils": "^15.1.0",
+    "react-mapbox-gl": "^0.5.1",
     "redux-mock-store": "^1.0.3",
+    "rollup-plugin-babel": "^2.5.1",
+    "rollup-plugin-commonjs": "^3.0.0",
+    "rollup-plugin-npm": "^1.4.0",
     "script-loader": "^0.7.0",
     "sinon": "^1.17.4",
     "style-loader": "^0.13.1",
     "url-loader": "^0.5.7",
     "webpack": "^2.1.0-beta.7",
     "webpack-dev-server": "^2.0.0-beta",
-    "webpack-merge": "^0.13.0"
-  },
-  "dependencies": {
+    "webpack-merge": "^0.13.0",
     "react": "^15.1.0",
     "react-addons-pure-render-mixin": "^15.1.0",
     "react-dom": "^15.1.0",
@@ -66,7 +71,9 @@
     "react-waypoint": "^2.0.2",
     "redux": "^3.5.2",
     "redux-logger": "^2.6.1",
-    "redux-thunk": "^2.1.0",
-    "superagent": "^2.0.0-alpha.3"
+    "redux-thunk": "^2.1.0"
+  },
+  "peerDependencies": {
+    "react": "^15.1.0"
   }
 }

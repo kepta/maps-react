@@ -16,6 +16,10 @@ import DisplayMap from './examples/DisplayMap';
 import Cluster from './examples/Cluster';
 import SetStyle from './examples/SetStyle';
 import ToggleLayer from './examples/ToggleLayer';
+import VectorSource from './examples/VectorSource';
+import FitBounds from './examples/FitBounds';
+import SlowlyFly from './examples/SlowlyFly';
+import CenterOnSymbol from './examples/CenterOnSymbol';
 
 const node = document.getElementById('app');
 
@@ -49,6 +53,10 @@ render(
         <Route path="cluster" component={Cluster} />
         <Route path="SetStyle" component={SetStyle} />
         <Route path="ToggleLayer" component={ToggleLayer} />
+        <Route path="VectorSource" component={VectorSource} />
+        <Route path="FitBounds" component={FitBounds} />
+        <Route path="SlowlyFly" component={SlowlyFly} />
+        <Route path="CenterOnSymbol" component={CenterOnSymbol} />
       </Route>
     </Router>
   </Provider>,

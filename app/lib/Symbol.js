@@ -23,7 +23,6 @@ Symbol.propTypes = {
   map: React.PropTypes.object,
   filter: React.PropTypes.array,
   layout: React.PropTypes.object.isRequired,
-  type: React.PropTypes.string.isRequired,
   visibility: React.PropTypes.string,
   sourceLayer: React.PropTypes.string,
 };
