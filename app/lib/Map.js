@@ -1,7 +1,5 @@
 import React from 'react';
-// import mapboxgl from 'mapbox-gl';
 import { clean } from './helper';
-export const GL_TOKEN = 'pk.eyJ1Ijoia3VzaGFuMjAyMCIsImEiOiJjaWw5dG56enEwMGV6dWVsemxwMWw5NnM5In0.BbEUL1-qRFSHt7yHMorwew';
 
 export default class Map extends React.Component {
   static propTypes = {
@@ -12,6 +10,7 @@ export default class Map extends React.Component {
     zoom: React.PropTypes.number,
     pitch: React.PropTypes.number,
     bearing: React.PropTypes.number,
+    mapboxgl: React.PropTypes.object.isRequired,
   }
 
   static defaultProps = {
@@ -25,8 +24,7 @@ export default class Map extends React.Component {
     map: null,
   }
   componentDidMount() {
-    mapboxgl.accessToken = GL_TOKEN;
-    const map = new mapboxgl.Map({
+    const map = new this.props.mapboxgl.Map({
       container: 'map',
       style: this.props.style, // stylesheet location
       center: this.props.center,

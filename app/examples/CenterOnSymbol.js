@@ -2,6 +2,9 @@ import React from 'react';
 import Map from '../lib/Map';
 import Source from '../lib/Source';
 import Symbol from '../lib/Symbol';
+import mapboxgl from 'mapbox-gl';
+
+export const GL_TOKEN = 'pk.eyJ1Ijoia3VzaGFuMjAyMCIsImEiOiJjaWw5dG56enEwMGV6dWVsemxwMWw5NnM5In0.BbEUL1-qRFSHt7yHMorwew';
 
 export default class CenterOnSymbol extends React.Component {
 
@@ -37,6 +40,7 @@ export default class CenterOnSymbol extends React.Component {
   }
 
   render() {
+    mapboxgl.accessToken = GL_TOKEN;
     return (
       <div>
         <a onClick={this.flyto}>fly</a>
@@ -45,6 +49,7 @@ export default class CenterOnSymbol extends React.Component {
           center={[-90.96, -0.47]}
           zoom={8}
           onLoad={(map) => this.setState({ map })}
+          mapboxgl={mapboxgl}
         >
           <Source
             name="symbols"
