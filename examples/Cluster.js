@@ -40,6 +40,7 @@ export default () =>
           paint={{
             'circle-color': layer[1],
             'circle-radius': 18,
+            'kushan': undefined,
           }}
           filter={i === 0 ?
                 ['>=', 'point_count', layer[0]] :

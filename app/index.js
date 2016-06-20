@@ -60,7 +60,7 @@ render(
     <Router history={history}>
       <Route path="/" component={App}>
         <IndexRoute component={Sample} />
-        {Object.keys(examples).map(e => <Route path={e} component={examples[e]} />)}
+        {Object.keys(examples).map((e, k) => <Route path={e} key={k} component={examples[e]} />)}
       </Route>
     </Router>
   </Provider>,
