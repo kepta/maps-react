@@ -1,6 +1,6 @@
 {
   "name": "maps-react",
-  "version": "0.0.21",
+  "version": "0.0.27",
   "description": "",
   "main": "bundle/index.js",
   "scripts": {

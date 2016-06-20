@@ -15,5 +15,6 @@ module.exports = {
         ignoreComments: true
       }
     ],
+    'no-underscore-dangle': 0
   }
 };

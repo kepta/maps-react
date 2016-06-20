@@ -21,6 +21,17 @@ import FitBounds from '../examples/FitBounds';
 import SlowlyFly from '../examples/SlowlyFly';
 import CenterOnSymbol from '../examples/CenterOnSymbol';
 
+const examples = {
+  DisplayMap,
+  Cluster,
+  SetStyle,
+  ToggleLayer,
+  VectorSource,
+  FitBounds,
+  SlowlyFly,
+  CenterOnSymbol,
+};
+
 const node = document.getElementById('app');
 
 let middleware = [thunkMiddleware];
@@ -49,14 +60,7 @@ render(
     <Router history={history}>
       <Route path="/" component={App}>
         <IndexRoute component={Sample} />
-        <Route path="display_a_map" component={DisplayMap} />
-        <Route path="cluster" component={Cluster} />
-        <Route path="SetStyle" component={SetStyle} />
-        <Route path="ToggleLayer" component={ToggleLayer} />
-        <Route path="VectorSource" component={VectorSource} />
-        <Route path="FitBounds" component={FitBounds} />
-        <Route path="SlowlyFly" component={SlowlyFly} />
-        <Route path="CenterOnSymbol" component={CenterOnSymbol} />
+        {Object.keys(examples).map(e => <Route path={e} component={examples[e]} />)}
       </Route>
     </Router>
   </Provider>,
